@@ -71,6 +71,10 @@ public class HttpClientConnection implements HessianConnection {
         return response == null || response.getStatusLine() == null ? null :  response.getStatusLine().getReasonPhrase();
     }
 
+    public String getContentEncoding() {
+        return "UTF-8";
+    }
+
     public InputStream getInputStream() throws IOException {
         return response == null || response.getEntity() == null ? null : response.getEntity().getContent();
     }

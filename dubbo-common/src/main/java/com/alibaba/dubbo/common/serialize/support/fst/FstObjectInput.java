@@ -1,12 +1,12 @@
 /**
  * Copyright 1999-2014 dangdang.com.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,52 +34,52 @@ public class FstObjectInput implements ObjectInput {
     }
 
     public boolean readBool() throws IOException {
-            return input.readBoolean();
+        return input.readBoolean();
     }
 
     public byte readByte() throws IOException {
-            return input.readByte();
+        return input.readByte();
     }
 
     public short readShort() throws IOException {
-            return input.readShort();
+        return input.readShort();
     }
 
     public int readInt() throws IOException {
-            return input.readInt();
+        return input.readInt();
     }
 
     public long readLong() throws IOException {
-            return input.readLong();
+        return input.readLong();
     }
 
     public float readFloat() throws IOException {
-            return input.readFloat();
+        return input.readFloat();
     }
 
     public double readDouble() throws IOException {
-            return input.readDouble();
+        return input.readDouble();
     }
 
     public byte[] readBytes() throws IOException {
-            int len = input.readInt();
-            if (len < 0) {
-                return null;
-            } else if (len == 0) {
-                return new byte[]{};
-            } else {
-                byte[] b = new byte[len];
-                input.readFully(b);
-                return b;
-            }
+        int len = input.readInt();
+        if (len < 0) {
+            return null;
+        } else if (len == 0) {
+            return new byte[]{};
+        } else {
+            byte[] b = new byte[len];
+            input.readFully(b);
+            return b;
+        }
     }
 
     public String readUTF() throws IOException {
-            return input.readUTF();
+        return input.readUTF();
     }
 
     public Object readObject() throws IOException, ClassNotFoundException {
-            return input.readObject();
+        return input.readObject();
     }
 
 

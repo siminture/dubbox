@@ -15,16 +15,19 @@
  */
 package com.alibaba.dubbo.cache.support.jcache;
 
+import com.alibaba.dubbo.common.URL;
+
 import javax.cache.Cache;
-import javax.cache.CacheBuilder;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.expiry.AccessedExpiryPolicy;
 
-import com.alibaba.dubbo.common.URL;
+import static javax.cache.expiry.Duration.ONE_HOUR;
 
 /**
  * JCache
- * 
+ *
  * @author william.liangf
  */
 public class JCache implements com.alibaba.dubbo.cache.Cache {
@@ -33,9 +36,15 @@ public class JCache implements com.alibaba.dubbo.cache.Cache {
 
     public JCache(URL url) {
         String type = url.getParameter("jcache");
-        CacheManager cacheManager = type == null || type.length() == 0 ? Caching.getCacheManager() : Caching.getCacheManager(type);
-        CacheBuilder<Object, Object> cacheBuilder = cacheManager.createCacheBuilder(url.getServiceKey());
-        this.store = cacheBuilder.build();
+        CacheManager cacheManager = type == null || type.length() == 0 ? Caching.getCachingProvider().getCacheManager() : Caching.getCachingProvider(type).getCacheManager();
+
+        MutableConfiguration config =
+                new MutableConfiguration<>()
+                        .setTypes(Object.class, Object.class)
+                        .setExpiryPolicyFactory(AccessedExpiryPolicy.factoryOf(ONE_HOUR))
+                        .setStatisticsEnabled(true);
+        
+        store = cacheManager.createCache(url.getServiceKey(), config);
     }
 
     public void put(Object key, Object value) {
